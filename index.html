@@ -65,7 +65,7 @@ button:hover {
     <img src="https://files.catbox.moe/prsu5d.jpg" alt="Logo" id="logo">
     <h1>Neon Image Generator</h1>
     <input type="text" id="textInput" placeholder="Enter your text">
-    <button id="generateBtn"> <a href =let apiUrl = https://text-to-image.bjcoderx.workers.dev/?text=${encodeURIComponent(text)};
+    <button id="generateBtn"> <a href https://text-to-image.bjcoderx.workers.dev/?text=${encodeURIComponent(text)};
 >Generate Image</a></button>
     <div id="imageContainer"></div>
     <button id="downloadBtn" style="display: none;">Download Image</button>
@@ -79,7 +79,7 @@ button:hover {
         return;
     }
 
-    let apiUrl = https://text-to-image.bjcoderx.workers.dev/?text=${encodeURIComponent(text)};
+    let apiUrl = 'https://text-to-image.bjcoderx.workers.dev/?text=${encodeURIComponent(text)}';
 
     fetch(apiUrl)
         .then(response => response.blob())
