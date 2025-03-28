@@ -3,105 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neon Image Generator</title>
+    <title>AI Text-to-Image Generator</title>
     <style>
     body {
-    font-family: Arial, sans-serif;
-    background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoupdDwOYYYmAtfR6fpUU-uDTkLyokmvdrbg&s');
-    background-color: #18BE20;
-    color: white;
-    text-align: center;
-    padding: 20px;
-}
+        font-family: Arial, sans-serif;
+        background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoupdDwOYYYmAtfR6fpUU-uDTkLyokmvdrbg&s');
+        background-color: #18BE20;
+        color: white;
+        text-align: center;
+        padding: 20px;
+    }
 
-.container {
-    max-width: 500px;
-    margin: auto;
-    padding: 20px;
-    background: green;
-    border: 10px solid black;
-    border-radius: 10px;
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
-}
+    .container {
+        max-width: 500px;
+        margin: auto;
+        padding: 20px;
+        background: green;
+        border: 10px solid black;
+        border-radius: 10px;
+        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
+    }
 
-input {
-    width: 80%;
-    padding: 10px;
-    margin: 10px 0;
-    border: none;
-    border-radius: 5px;
-}
+    input {
+        width: 80%;
+        padding: 10px;
+        margin: 10px 0;
+        border: none;
+        border-radius: 5px;
+    }
 
-button {
-    background: #FFD700;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-}
+    button {
+        background: #FFD700;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+    }
 
-button:hover {
-    background: #FFA500;
-}
+    button:hover {
+        background: #FFA500;
+    }
 
-#imageContainer img {
-    margin-top: 20px;
-    max-width: 100%;
-    border: 5px solid #8B4513;
-}
-#logo {
-    display: block;
-    margin: 0 auto;
-    width: 100px; /* Adjust size as needed */
-    height: auto;
-    border-radius: 10px; /* Optional: rounded edges */
-}
-
-
+    #imageContainer img {
+        margin-top: 20px;
+        max-width: 100%;
+        border: 5px solid #8B4513;
+    }
+    
+    #logo {
+        display: block;
+        margin: 0 auto;
+        width: 100px; /* Adjust size as needed */
+        height: auto;
+        border-radius: 10px; /* Optional: rounded edges */
+    }
     </style>
 </head>
 <body>
     <div class="container">
-    <img src="https://files.catbox.moe/prsu5d.jpg" alt="Logo" id="logo">
-    <h1>Neon Image Generator</h1>
-    <input type="text" id="textInput" placeholder="Enter your text">
-    <button id="generateBtn">Generate Image</button>
-    <div id="imageContainer"></div>
-    <button id="downloadBtn" style="display: none;">Download Image</button>
-</div>
+        <img src="https://files.catbox.moe/prsu5d.jpg" alt="Logo" id="logo">
+        <h1>Neon Image Generator</h1>
+        <input type="text" id="textInput" placeholder="Enter your text">
+        <button id="generateBtn">Generate Image</button>
+        <div id="imageContainer"></div>
+        <button id="downloadBtn" style="display: none;">Download Image</button>
+    </div>
 
     <script>
     document.getElementById("generateBtn").addEventListener("click", function () {
-    let text = document.getElementById("textInput").value;
-    if (text.trim() === "") {
-        alert("Please enter some text!");
-        return;
-    }
+        let text = document.getElementById("textInput").value;
+        if (text.trim() === "") {
+            alert("Please enter some text!");
+            return;
+        }
 
-    let apiUrl = 'https://text-to-image.bjcoderx.workers.dev/?text=${encodeURIComponent(text)}';
+        let apiUrl = `https://text-to-image.bjcoderx.workers.dev/?text=${encodeURIComponent(text)}`;
 
-    fetch(apiUrl)
-        .then(response => response.blob())
-        .then(imageBlob => {
-            let imageUrl = URL.createObjectURL(imageBlob);
-            document.getElementById("imageContainer").innerHTML = <img id="generatedImg" src="${imageUrl}" alt="Generated Image">;
+        fetch(apiUrl)
+            .then(response => response.blob())
+            .then(imageBlob => {
+                let imageUrl = URL.createObjectURL(imageBlob);
+                document.getElementById("imageContainer").innerHTML = `<img id="generatedImg" src="${imageUrl}" alt="Generated Image">`;
 
-            // Show download button
-            let downloadBtn = document.getElementById("downloadBtn");
-            downloadBtn.style.display = "block";
-            downloadBtn.onclick = function () {
-                let link = document.createElement("a");
-                link.href = imageUrl;
-                link.download = "generated-image.png";
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            };
-        })
-        .catch(
-error => console.error("Error fetching image:", error));
-});
-
+                // Show download button
+                let downloadBtn = document.getElementById("downloadBtn");
+                downloadBtn.style.display = "block";
+                downloadBtn.onclick = function () {
+                    let link = document.createElement("a");
+                    link.href = imageUrl;
+                    link.download = "generated-image.png";
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                };
+            })
+            .catch(error => console.error("Error fetching image:", error));
+    });
     </script>
 </body>
 </html>
